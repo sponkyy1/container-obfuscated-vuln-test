@@ -1,0 +1,7 @@
+# ignore scan outputs, docker cache, etc.
+*.log
+*.json
+*.tar
+*.gz
+__pycache__/
+.env
