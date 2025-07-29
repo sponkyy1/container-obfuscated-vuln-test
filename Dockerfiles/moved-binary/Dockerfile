@@ -3,7 +3,7 @@ FROM debian:bullseye
 WORKDIR /opt/vuln/bin
 
 RUN apt-get update && \
-    apt-get install -y wget && \
+    apt-get install -y wget binutils && \
     cp /usr/bin/wget ./wget && \
     strip wget && \
     apt-get remove -y wget && \
