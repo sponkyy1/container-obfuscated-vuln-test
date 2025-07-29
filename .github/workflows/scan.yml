@@ -15,20 +15,35 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Build Docker image
-      run: docker build -t base-image ./Dockerfiles/base
+    # - name: Build Docker image
+    #   run: docker build -t base-image ./Dockerfiles/base
 
     - name: Create scan output folder
       run: mkdir -p scans/trivy
 
-    - name: Run Trivy scan
+    # - name: Run Trivy scan
+    #   uses: aquasecurity/trivy-action@master
+    #   with:
+    #     image-ref: base-image
+    #     scan-type: image
+    #     format: table
+    #     exit-code: 0
+    #     output: scans/trivy/base.txt
+
+    - name: Build renamed-so image
+      run: docker build -t renamed-so-image ./Dockerfiles/renamed-so
+
+    - name: Create output folder for renamed-so
+      run: mkdir -p scans/trivy/renamed-so
+
+    - name: Run Trivy on renamed-so
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: base-image
+        image-ref: renamed-so-image
         scan-type: image
         format: table
         exit-code: 0
-        output: scans/trivy/base.txt
+        output: scans/trivy/renamed-so/scan.txt
 
 
     - name: Upload Trivy results
