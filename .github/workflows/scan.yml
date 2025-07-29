@@ -30,20 +30,35 @@ jobs:
     #     exit-code: 0
     #     output: scans/trivy/base.txt
 
-    - name: Build renamed-so image
-      run: docker build -t renamed-so-image ./Dockerfiles/renamed-so
+    # - name: Build renamed-so image
+    #   run: docker build -t renamed-so-image ./Dockerfiles/renamed-so
 
-    - name: Create output folder for renamed-so
-      run: mkdir -p scans/trivy/renamed-so
+    # - name: Create output folder for renamed-so
+    #   run: mkdir -p scans/trivy/renamed-so
 
-    - name: Run Trivy on renamed-so
+    # - name: Run Trivy on renamed-so
+    #   uses: aquasecurity/trivy-action@master
+    #   with:
+    #     image-ref: renamed-so-image
+    #     scan-type: image
+    #     format: table
+    #     exit-code: 0
+    #     output: scans/trivy/renamed-so/scan.txt
+
+    - name: Build moved-binary image
+      run: docker build -t moved-binary-image ./Dockerfiles/moved-binary
+
+    - name: Create output folder for moved-binary
+      run: mkdir -p scans/trivy/moved-binary
+
+    - name: Run Trivy on moved-binary
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: renamed-so-image
+        image-ref: moved-binary-image
         scan-type: image
         format: table
         exit-code: 0
-        output: scans/trivy/renamed-so/scan.txt
+        output: scans/trivy/moved-binary/scan.txt
 
 
     - name: Upload Trivy results
